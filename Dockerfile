@@ -3,9 +3,9 @@ MAINTAINER redbeard28 <https://github.com/redbeard28/docker_mkdocs>
 
 RUN apk add --update python3 py-pip && pip3 install --upgrade pip && pip3 install mkdocs && pip install mkdocs-awesome-pages-plugin && rm -rf /var/cache/apk/*
 
-WORKDIR /docs
+WORKDIR /work
 
-VOLUME /docs
+VOLUME /work
 EXPOSE 8000
 
 ENTRYPOINT ["mkdocs"]
