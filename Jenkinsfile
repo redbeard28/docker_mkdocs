@@ -8,7 +8,8 @@ pipeline {
 
     environment {
         branchVName = 'master'
-        TAG = '0.4'
+        TAG = '0.1'
+        IMAGE = 'redbeard28/mkdocs'
     }
 
     stages{
@@ -18,7 +19,7 @@ pipeline {
             }
             post{
                 success{
-                    echo 'Succefuly clone your repo...'
+                    echo 'Successfuly clone your repo...'
                 }
             }
         }
@@ -35,7 +36,7 @@ pipeline {
                         /* login to the registry and push */
                         withDockerRegistry([credentialsId: 'DOCKERHUB', url: "https://index.docker.io/v1/"]) {
                             /* Prepare build command */
-                            def image = docker.build("redbeard28/docker_mkdocs:${TAG}")
+                            def image = docker.build("${IMAGE}:${TAG}")
 
                             image.push()
 
