@@ -37,7 +37,7 @@ pipeline {
                         /* login to the registry and push */
                         withDockerRegistry([credentialsId: 'DOCKERHUB', url: "https://index.docker.io/v1/"]) {
                             /* Prepare build command */
-                            def image = docker.build("${IMAGE}:${TAG}","-f Serve Dockerfile_build_mkdocs_serve")
+                            def image = docker.build("${IMAGE}:${TAG}","-f Serve/Dockerfile_build_mkdocs_serve .")
 
                             //image.push()
 
