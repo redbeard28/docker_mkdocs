@@ -3,50 +3,31 @@
 </h1>
 
 ## What for ?
-It's a simple repo with light Dockerfile.
+It's a simple repo with light Dockerfile(s).
 The mean of that repo is to be called by others repos to construct a simple documentation.
 it's use the host_path to mount into the container the docs folder of your mkdocs.
+
+## Dockerfiles
+
+### Dockerfile_serve
+
+Use it to just load your markdown pages with a local folder.
+** Don't use it for Production purpose** 
+
+For production purpose, please consider to build your webpages and put it in a **Apache/Nginx** server !
+
 
 ### Exemple
 
 ```bash
 #!/bin/bash
 
-doc_path='~/GitHub/somesdocs'
-
-if [ ! -d $doc_path ];then
-    mkdir -p $doc_path
-fi
-
-somesdocs_container=`docker ps -s |grep somesdocs|awk '{ print $1 }'`
-somesdocs_images=`docker images|grep somesdocs|awk '{ print $3 }'`
-
-echo ""
-echo "# Stoping container ${somesdocs_container}"
-sudo docker stop $somesdocs_container
-
-echo ""
-echo "## Delete container ${somesdocs_container}"
-sudo docker rm $somesdocs_container
-
-echo ""
-echo "### Delete image ${somesdocs_images}"
-sudo docker rmi $somesdocs_images
-
-echo ""
-echo "# Deplacement vers $doc_path"
-cd $doc_path
-
-echo ""
-echo "## Build de somesdocs"
-sudo docker build -t redbeard28/somesdocs github.com/redbeard28/docker_mkdocs
-
-### Serve your project  
-
-echo ""
-echo "## Starting somesdocs ..."
-cd $doc_path
-git clone https://github.com/redbeard28/redbeard-consulting_docs.git .
-sudo docker run --rm -v `pwd`:/docs -p 8001:8000 redbeard28/somesdocs serve -a 0.0.0.0:8000 &
+git clone https://github.com/redbeard28/docset.git .
+sudo docker run --rm -v docset:/work -p 8001:8000 redbeard28/docs:$TAG serve -a 0.0.0.0:8000 &
 ```
 
+### TODO: Dockerfile_html2dash
+
+Use it to convert your mkdocs to docset for dash/zeal/velocity
+
+Please go to [docset repo](https://github.com/redbeard28/docset.git)
