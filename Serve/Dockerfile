@@ -18,6 +18,7 @@ RUN \
 WORKDIR /work
 
 VOLUME /work
+
 EXPOSE 8000
 
 #ENTRYPOINT ["mkdocs","serve","-a","0.0.0.0:8000","&"]

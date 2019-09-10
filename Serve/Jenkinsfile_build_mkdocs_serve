@@ -7,8 +7,8 @@ pipeline {
 
     environment {
         branchVName = 'master'
-        TAG = '0.3'
-        IMAGE = 'redbeard28/docset_serve'
+        TAG = '0.5'
+        IMAGE = 'redbeard28/docset_server'
     }
 
     stages{
