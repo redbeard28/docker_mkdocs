@@ -39,7 +39,7 @@ pipeline {
                             /* Prepare build command */
                             def image = docker.build("${IMAGE}:${TAG}","-f Dockerfile Serve")
 
-                            //image.push()
+                            image.push()
 
                         }
                     }
