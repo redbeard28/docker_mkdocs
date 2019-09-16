@@ -44,17 +44,7 @@ done
 #################################
 
 generate_html() {
-    echo "
 
-    ############################
-    #
-    # Create HTML in  $DOCS_PATH/site
-    #
-    #
-    ############################
-
-    "
-    #cd $DOCS_PATH
     mkdir Redbeard28
     mkdocs build
     sleep 5
