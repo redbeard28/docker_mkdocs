@@ -52,6 +52,7 @@ generate_html() {
     # Fix for icon.ico bug
     cp docs_src/images/favicon.ico ${DOCSET_PATH}/Redbeard28.docset/icon.ico
     tar --exclude='.DS_Store' -cvzf docs_src/feeds/redbeard28.tgz ${DOCSET_PATH}/Redbeard28.docset
+    cp docs_src/feeds/redbeard28.tgz docs/feeds/
     ls -l $DOCSET_PATH
     # Add new version
     #sed -i "s/TOTO/${VERSION}/g" ${DOCS_PATH}/docs_src/feeds/redbeard28.xml

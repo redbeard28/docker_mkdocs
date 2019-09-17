@@ -65,8 +65,7 @@ Use it to convert your mkdocs to docset for dash/zeal/velocity
 #!/bin/bash
 
 git clone https://github.com/redbeard28/docset.git .
-docker container run -it --rm -v docset:/work build:0.1 -d Redbeard28 -i redbeard28/docset:1.0 -m html
-
+docker run -i --rm -v ./docset:/work redbeard28/html2dash:0.1 -d Redbeard28 -i redbeard28/docset:1.0 -m html
 
 ```
 Please go to [docset repo](https://github.com/redbeard28/docset.git)
