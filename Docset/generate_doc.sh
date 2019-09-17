@@ -19,7 +19,7 @@ option -m =>    html or serve                                               => G
 
 #################################
 ### Recuperation des entrees
-while getopts d:D:i:m:h OPTION
+while getopts d:i:m:h OPTION
 do
   case "$OPTION" in
   d)
