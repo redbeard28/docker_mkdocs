@@ -27,7 +27,7 @@ do
     DOCSET_PATH="$OPTARG"
     ;;
   p)
-    $PATH_INDEX="$OPTARG"
+    PATH_INDEX="$OPTARG"
     ;;
   m)
     TYPE="$OPTARG"
