@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         branchVName = 'master'
-        TAG = '0.2'
+        TAG = '0.8'
         IMAGE = 'redbeard28/html2dash'
     }
 
