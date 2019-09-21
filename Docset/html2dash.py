@@ -81,10 +81,13 @@ def add_infoplist(info_path, index_page):
     """.format(name, name, name, index_page)
 
     try:
-        open(info_path, 'wb').write(info)
-        print("Create the Info.plist File")
+        #open(info_path, 'wb').write(info)
+        file = open(info_path, 'w')
+        file.write(info)
+        file.close()
+        print("Create the " + info_path +" File")
     except:
-        print("**Error**:  Create the Info.plist File Failed...")
+        print("**Error**:  Create the " + info_path + " File Failed...")
         clear_trash()
         exit(2)
 
@@ -100,7 +103,7 @@ def clear_trash():
 if __name__ == "__main__":
     print("Removing directories")
     remove_dir("release/redbeard28.docset")
-    remove_dir("redbeard28.docset")
+    #remove_dir("redbeard28.docset")
 
     parser = argparse.ArgumentParser()
 
@@ -142,20 +145,31 @@ if __name__ == "__main__":
     icon_path = destpath + "/" + docset_name
     info = docset_name + "/Contents/info.plist"
 
-
     if results.path and results.path[-1] != "/":
         destpath += "/"
     docset_path = destpath + doc_path
     sqlite_path = destpath + dsidx_path
+    contents_path = destpath +  docset_name + "/Contents"
     info_path = destpath + info
 
     # print docset_path, sqlite_path
+    if not os.path.exists(contents_path):
+        os.makedirs(contents_path)
+        print("Create the " + contents_path + " Folder!")
+    else:
+        print("Docset " + contents_path + " Folder already exist!")
 
     if not os.path.exists(docset_path):
         os.makedirs(docset_path)
         print("Create the Docset Folder!")
     else:
         print("Docset Folder already exist!")
+
+    if not os.path.exists(doc_path):
+        os.makedirs(doc_path)
+        print("Create the " + doc_path + " Folder!")
+    else:
+        print("Docset " + doc_path + " Folder already exist!")
 
     # Copy the HTML Documentation to the Docset Folder
     try:
@@ -187,7 +201,9 @@ if __name__ == "__main__":
     cur.execute('CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path);')
     print("Create the SQLite Index")
 
-    add_urls('')
+    base_dir = 'redbeard28/'
+    add_urls(base_dir)
+    #add_urls('')
     # add_urls('wxadoc/dev/component/')
     db.commit()
     db.close()

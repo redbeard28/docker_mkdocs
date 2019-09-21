@@ -4,7 +4,9 @@ MAINTAINER redbeard28 <https://github.com/redbeard28/docker_mkdocs>
 
 # Install dependencies
 COPY * /
-RUN mkdir /work
+RUN mkdir /work \
+    && chmod 755 /generate_doc.sh \
+    && chmod 755 /html2dash.py
 RUN pip install --upgrade pip
 
 

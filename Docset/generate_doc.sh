@@ -8,7 +8,7 @@ clear
 echo "
 ########################################
 #
-#   $(pwd)/$job_name -d Redbeard28 -i redbeard28/docset:1.0 -m html
+#   $(pwd)/$job_name -d my_docset_path -i redbeard28/docset:1.0 -m html
 #
 #########################################
 option -d =>    /tmp/docs                                                   =>  destination path of your docset
@@ -19,14 +19,11 @@ option -m =>    html or serve                                               => G
 
 #################################
 ### Recuperation des entrees
-while getopts d:i:m:h OPTION
+while getopts d:m:h OPTION
 do
   case "$OPTION" in
   d)
     DOCSET_PATH="$OPTARG"
-    ;;
-  i)
-    IMAGE_NAME="$OPTARG"
     ;;
   m)
     TYPE="$OPTARG"
@@ -45,17 +42,18 @@ done
 
 generate_html() {
 
-    mkdir Redbeard28
-    mkdocs build
+    mkdocs build -c --config-file mkdocs.yml
+    mkdocs build --config-file mkdocs.yml
     sleep 5
-    python /html2dash.py -n Redbeard28 -d $DOCSET_PATH -i docs_src/images/icon.png docs
+
+    mkdir redbeard28
+    cp -rf docs/* redbeard28/
+    python /html2dash.py -n redbeard28 -d release -i docs_src/images/icon.png redbeard28 -p "redbeard28/index.html"
+    sleep 5
     # Fix for icon.ico bug
-    cp docs_src/images/favicon.ico ${DOCSET_PATH}/Redbeard28.docset/icon.ico
-    tar --exclude='.DS_Store' -cvzf docs_src/feeds/redbeard28.tgz ${DOCSET_PATH}/Redbeard28.docset
-    cp docs_src/feeds/redbeard28.tgz docs/feeds/
-    ls -l $DOCSET_PATH
-    # Add new version
-    #sed -i "s/TOTO/${VERSION}/g" ${DOCS_PATH}/docs_src/feeds/redbeard28.xml
+    cp docs_src/images/favicon.ico release/redbeard28.docset/icon.ico
+    cd release && tar --exclude='.DS_Store' -cvzf ../docs_src/feeds/redbeard28.tgz redbeard28.docset
+    cp ../docs_src/feeds/redbeard28.tgz ../docs/feeds/redbeard28.tgz
 }
 
 
